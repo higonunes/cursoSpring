@@ -1,16 +1,26 @@
 package com.higo.learning.resources;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.higo.learning.domain.Categoria;
+import com.higo.learning.services.CategoriaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/categorias")
 public class CategoriasResource {
 
-    @GetMapping
-    public String categorias() {
-        return "Tudo está funcbcbnvbcionandooooooooooooooo";
+    @Autowired
+    private CategoriaService service;
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<?> find(@PathVariable Integer id) {
+        Categoria obj = service.buscar(id);
+
+        return ResponseEntity.ok().body(obj);
+
     }
 }
