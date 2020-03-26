@@ -1,5 +1,6 @@
 package com.higo.learning.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.higo.learning.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
@@ -10,7 +11,10 @@ public class PagamentoComBoleto extends Pagamento {
 
     public static final long serialVersionUID = 1L;
 
+    @JsonFormat(pattern = "dd/MM/yyy")
     private Date dataVencimento;
+    
+    @JsonFormat(pattern = "dd/MM/yyy")
     private Date dataPagamento;
 
     public PagamentoComBoleto() { };
