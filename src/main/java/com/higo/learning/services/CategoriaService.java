@@ -2,8 +2,10 @@ package com.higo.learning.services;
 
 import com.higo.learning.domain.Categoria;
 import com.higo.learning.repositories.CategoriaRepository;
+import com.higo.learning.services.Exceptions.DataIntegrityException;
 import com.higo.learning.services.Exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,7 +16,7 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository repo;
 
-    public Categoria buscar(Integer id) {
+    public Categoria find(Integer id) {
         Optional<Categoria> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
     }
@@ -22,5 +24,20 @@ public class CategoriaService {
     public Categoria insert(Categoria obj) {
         obj.setId(null);
         return repo.save(obj);
+    }
+
+    public Categoria update(Categoria obj) {
+        find(obj.getId());
+        return repo.save(obj);
+    }
+
+    public void delete(Integer id) {
+        find(id);
+        try {
+            repo.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw  new DataIntegrityException("Não é possível excluir uma categoria com produtos");
+        }
+
     }
 }
