@@ -13,7 +13,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
-
+import com.higo.learning.dto.CategoriaDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,5 +56,9 @@ public class CategoriaService {
     public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.fromString(direction), orderBy);
         return repo.findAll(pageRequest);
+    }
+
+    public Categoria fromDTO(CategoriaDTO objDTO) {
+        return new Categoria(objDTO.getId(), objDTO.getNome());
     }
 }
