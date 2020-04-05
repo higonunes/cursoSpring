@@ -30,7 +30,7 @@ public class Pagamento implements Serializable {
 
     public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
         this.id = id;
-        this.estado = estado;
+        this.estado = (estado == null) ? null : estado;
         this.pedido = pedido;
     }
 
