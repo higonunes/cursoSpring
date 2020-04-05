@@ -4,7 +4,7 @@ package com.higo.learning.services;
 import com.higo.learning.domain.Cliente;
 import com.higo.learning.domain.Pedido;
 import com.higo.learning.repositories.PedidoRepository;
-import com.higo.learning.services.Exceptions.ObjectNotFoundException;
+import com.higo.learning.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

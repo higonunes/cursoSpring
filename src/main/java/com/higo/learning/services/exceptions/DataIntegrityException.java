@@ -1,4 +1,4 @@
-package com.higo.learning.services.Exceptions;
+package com.higo.learning.services.exceptions;
 
 public class DataIntegrityException extends RuntimeException {
 

@@ -1,7 +1,7 @@
 package com.higo.learning.resources.exception;
 
-import com.higo.learning.services.Exceptions.DataIntegrityException;
-import com.higo.learning.services.Exceptions.ObjectNotFoundException;
+import com.higo.learning.services.exceptions.DataIntegrityException;
+import com.higo.learning.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

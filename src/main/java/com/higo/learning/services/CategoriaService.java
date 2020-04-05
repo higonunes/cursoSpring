@@ -4,8 +4,8 @@ import com.higo.learning.domain.Categoria;
 
 import com.higo.learning.repositories.CategoriaRepository;
 
-import com.higo.learning.services.Exceptions.DataIntegrityException;
-import com.higo.learning.services.Exceptions.ObjectNotFoundException;
+import com.higo.learning.services.exceptions.DataIntegrityException;
+import com.higo.learning.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
