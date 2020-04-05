@@ -1,10 +1,13 @@
 package com.higo.learning.resources;
 
 
+import com.higo.learning.domain.Categoria;
 import com.higo.learning.domain.Cliente;
 import com.higo.learning.domain.Cliente;
+import com.higo.learning.dto.CategoriaDTO;
 import com.higo.learning.dto.ClienteDTO;
 import com.higo.learning.dto.ClienteDTO;
+import com.higo.learning.dto.ClienteNewDTO;
 import com.higo.learning.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,6 +33,14 @@ public class ClienteResource {
 
         return ResponseEntity.ok().body(obj);
 
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO) {
+        Cliente obj = service.fromDTO(objDTO);
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @GetMapping
