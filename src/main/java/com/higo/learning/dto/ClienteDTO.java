@@ -1,12 +1,14 @@
 package com.higo.learning.dto;
 
 import com.higo.learning.domain.Cliente;
+import com.higo.learning.services.validation.ClientUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClientUpdate
 public class ClienteDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
