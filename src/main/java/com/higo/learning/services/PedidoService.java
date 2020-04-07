@@ -6,6 +6,7 @@ import com.higo.learning.domain.ItemPedido;
 import com.higo.learning.domain.PagamentoComBoleto;
 import com.higo.learning.domain.Pedido;
 import com.higo.learning.enums.EstadoPagamento;
+import com.higo.learning.repositories.ClienteRepository;
 import com.higo.learning.repositories.ItemPedidoRepository;
 import com.higo.learning.repositories.PagamentoRepository;
 import com.higo.learning.repositories.PedidoRepository;
@@ -35,6 +36,12 @@ public class PedidoService {
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
+    @Autowired
+    private ClienteService clienteService;
+
+    @Autowired
+    private EmailService emailService;
+
     public Pedido buscar(Integer id) {
         Optional<Pedido> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
@@ -44,6 +51,7 @@ public class PedidoService {
     public Pedido insert(Pedido obj) {
         obj.setId(null);
         obj.setInstante(new Date());
+        obj.setCliente(clienteService.find(obj.getCliente().getId()));
         obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         obj.getPagamento().setPedido(obj);
         if (obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -54,10 +62,12 @@ public class PedidoService {
         pagamentoRepository.save(obj.getPagamento());
         for (ItemPedido ip : obj.getItens()) {
             ip.setDesconto(0.0);
-            ip.setPreco(produtoService.buscar(ip.getProduto().getId()).getPreco());
+            ip.setProduto(produtoService.buscar(ip.getProduto().getId()));
+            ip.setPreco(ip.getProduto().getPreco());
             ip.setPedido(obj);
         }
         itemPedidoRepository.saveAll(obj.getItens());
+        emailService.sendOrderConfirmationEmail(obj);
         return obj;
     }
 }
