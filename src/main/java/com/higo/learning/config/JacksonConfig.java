@@ -3,6 +3,7 @@ package com.higo.learning.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.higo.learning.domain.PagamentoComBoleto;
 import com.higo.learning.domain.PagamentoComCartao;
+import com.higo.learning.services.EmailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -21,4 +22,5 @@ public class JacksonConfig {
         };
         return builder;
     }
+
 }
