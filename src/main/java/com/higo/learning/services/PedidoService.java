@@ -6,7 +6,6 @@ import com.higo.learning.domain.ItemPedido;
 import com.higo.learning.domain.PagamentoComBoleto;
 import com.higo.learning.domain.Pedido;
 import com.higo.learning.enums.EstadoPagamento;
-import com.higo.learning.repositories.ClienteRepository;
 import com.higo.learning.repositories.ItemPedidoRepository;
 import com.higo.learning.repositories.PagamentoRepository;
 import com.higo.learning.repositories.PedidoRepository;

@@ -1,19 +1,15 @@
 package com.higo.learning.services;
 
 import com.higo.learning.domain.Categoria;
-
+import com.higo.learning.dto.CategoriaDTO;
 import com.higo.learning.repositories.CategoriaRepository;
-
 import com.higo.learning.services.exceptions.DataIntegrityException;
 import com.higo.learning.services.exceptions.ObjectNotFoundException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
-import com.higo.learning.dto.CategoriaDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

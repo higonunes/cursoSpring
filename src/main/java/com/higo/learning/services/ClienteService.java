@@ -1,8 +1,9 @@
 package com.higo.learning.services;
 
 
-import com.higo.learning.domain.*;
+import com.higo.learning.domain.Cidade;
 import com.higo.learning.domain.Cliente;
+import com.higo.learning.domain.Endereco;
 import com.higo.learning.dto.ClienteDTO;
 import com.higo.learning.dto.ClienteNewDTO;
 import com.higo.learning.enums.TipoCliente;
