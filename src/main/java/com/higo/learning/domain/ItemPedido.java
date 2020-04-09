@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
-import java.text.ChoiceFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
 import java.util.Objects;
@@ -105,12 +104,11 @@ public class ItemPedido implements Serializable {
     @Override
     public String toString() {
         NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-        final StringBuilder sb = new StringBuilder();
-        sb.append(getProduto().getNome());
-        sb.append(", Qte: ").append(getQuantidade());
-        sb.append(", Preço unitário: ").append(nf.format(getPreco()));
-        sb.append(", Subtotal: ").append(nf.format(getSubTotal()));
-        sb.append("\n");
-        return sb.toString();
+        String sb = getProduto().getNome() +
+                ", Qte: " + getQuantidade() +
+                ", Preço unitário: " + nf.format(getPreco()) +
+                ", Subtotal: " + nf.format(getSubTotal()) +
+                "\n";
+        return sb;
     }
 }

@@ -1,8 +1,6 @@
 package com.higo.learning.resources;
 
-import com.higo.learning.domain.Categoria;
 import com.higo.learning.domain.Produto;
-import com.higo.learning.dto.CategoriaDTO;
 import com.higo.learning.dto.ProdutoDTO;
 import com.higo.learning.resources.utils.URL;
 import com.higo.learning.services.ProdutoService;
@@ -40,7 +38,7 @@ public class ProdutoResource {
         String nomeDecodificado = URL.decodeParam(nome);
         List<Integer> ids = URL.decodeIntList(categorias);
         Page<Produto> list = service.search(nomeDecodificado, ids , page, linesPerPage, orderBy, direction);
-        Page<ProdutoDTO> listDto = list.map(obj -> new ProdutoDTO(obj));
+        Page<ProdutoDTO> listDto = list.map(ProdutoDTO::new);
         return ResponseEntity.ok().body(listDto);
     }
 }

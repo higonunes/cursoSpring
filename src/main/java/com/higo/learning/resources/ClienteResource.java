@@ -1,11 +1,7 @@
 package com.higo.learning.resources;
 
 
-import com.higo.learning.domain.Categoria;
 import com.higo.learning.domain.Cliente;
-import com.higo.learning.domain.Cliente;
-import com.higo.learning.dto.CategoriaDTO;
-import com.higo.learning.dto.ClienteDTO;
 import com.higo.learning.dto.ClienteDTO;
 import com.higo.learning.dto.ClienteNewDTO;
 import com.higo.learning.services.ClienteService;
@@ -46,7 +42,7 @@ public class ClienteResource {
     @GetMapping
     public ResponseEntity<List<ClienteDTO>> findAll() {
         List<Cliente> list = service.findAll();
-        List<ClienteDTO> listDto = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
+        List<ClienteDTO> listDto = list.stream().map(ClienteDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok().body(listDto);
     }
 
@@ -58,7 +54,7 @@ public class ClienteResource {
             @RequestParam(value = "direction", defaultValue = "ASC") String direction
     ) {
         Page<Cliente> list = service.findPage(page, linesPerPage, orderBy, direction);
-        Page<ClienteDTO> listDto = list.map(obj -> new ClienteDTO(obj));
+        Page<ClienteDTO> listDto = list.map(ClienteDTO::new);
         return ResponseEntity.ok().body(listDto);
     }
 

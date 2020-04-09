@@ -14,7 +14,7 @@ public class CursomcApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 
 
 	}

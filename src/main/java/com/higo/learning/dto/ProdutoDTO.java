@@ -2,9 +2,6 @@ package com.higo.learning.dto;
 
 import com.higo.learning.domain.Produto;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.io.Serializable;
 
 public class ProdutoDTO implements Serializable {

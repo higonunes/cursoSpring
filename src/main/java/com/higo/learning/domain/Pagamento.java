@@ -1,8 +1,6 @@
 package com.higo.learning.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.higo.learning.enums.EstadoPagamento;
 
@@ -12,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 public class Pagamento implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +30,7 @@ public class Pagamento implements Serializable {
 
     public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
         this.id = id;
-        this.estado = (estado == null) ? null : estado;
+        this.estado = estado;
         this.pedido = pedido;
     }
 
