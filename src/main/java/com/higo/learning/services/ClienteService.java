@@ -6,9 +6,12 @@ import com.higo.learning.domain.Cliente;
 import com.higo.learning.domain.Endereco;
 import com.higo.learning.dto.ClienteDTO;
 import com.higo.learning.dto.ClienteNewDTO;
+import com.higo.learning.enums.Perfil;
 import com.higo.learning.enums.TipoCliente;
 import com.higo.learning.repositories.ClienteRepository;
 import com.higo.learning.repositories.EnderecoRepository;
+import com.higo.learning.security.UserSS;
+import com.higo.learning.services.exceptions.AuthorizationException;
 import com.higo.learning.services.exceptions.DataIntegrityException;
 import com.higo.learning.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,12 @@ public class ClienteService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Cliente find(Integer id) {
+        UserSS user = UserService.authenticated();
+
+        if(user == null || user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+            throw new AuthorizationException("Acesso Negado");
+        }
+
         Optional<Cliente> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
     }
