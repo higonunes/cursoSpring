@@ -1,5 +1,6 @@
 package com.higo.learning.services;
 
+import com.higo.learning.domain.Cliente;
 import com.higo.learning.domain.Pedido;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -68,5 +69,21 @@ public abstract class AbstractEmailService implements EmailService{
         mmh.setText(htmlFromTemplatePedido(obj), true);
 
         return mimeMessage;
+    }
+
+    @Override
+    public void sendNewPasswordEmail(Cliente cliente, String newPass) {
+        SimpleMailMessage msg = prepareNewPasswordEmail(cliente, newPass);
+        sendEmail(msg);
+    }
+
+    protected SimpleMailMessage prepareNewPasswordEmail(Cliente cliente, String newPass) {
+        SimpleMailMessage sm = new SimpleMailMessage();
+        sm.setTo(cliente.getEmail());
+        sm.setFrom(sender);
+        sm.setSubject("Solicitaçao de nova senha de usuário");
+        sm.setSentDate(new Date(System.currentTimeMillis()));
+        sm.setText("Nova senha: " + newPass);
+        return sm;
     }
 }
