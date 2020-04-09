@@ -9,8 +9,13 @@ import com.higo.learning.enums.EstadoPagamento;
 import com.higo.learning.repositories.ItemPedidoRepository;
 import com.higo.learning.repositories.PagamentoRepository;
 import com.higo.learning.repositories.PedidoRepository;
+import com.higo.learning.security.UserSS;
+import com.higo.learning.services.exceptions.AuthorizationException;
 import com.higo.learning.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -69,4 +74,18 @@ public class PedidoService {
         emailService.sendOrderConfirmationHtmlEmail(obj);
         return obj;
     }
+
+    public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+        UserSS user = UserService.authenticated();
+        if (user == null) {
+            throw new AuthorizationException("Acesso negado");
+        }
+
+        PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.fromString(direction), orderBy);
+
+        Cliente cliente = clienteService.find(user.getId());
+        return repo.findByCliente(cliente, pageRequest);
+    }
+
+
 }
