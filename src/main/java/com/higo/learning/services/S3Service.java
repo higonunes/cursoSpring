@@ -5,6 +5,7 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.higo.learning.services.exceptions.FileException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +51,8 @@ public class S3Service {
             amazonS3.putObject(new PutObjectRequest(bucketName, fileName, is, objectMetadata));
             LOG.info("Upload finalizado.");
             return amazonS3.getUrl(bucketName, fileName).toURI();
-        } catch (AmazonServiceException e) {
-            LOG.info("AmazonServiceException: " + e.getErrorMessage() + " | Status code:" + e.getStatusCode());
-        } catch (AmazonClientException e) {
-            LOG.info("AmazonClientException: " + e.getMessage());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
+       } catch (URISyntaxException e) {
+            throw new FileException("Erro ao converter");
         }
-        return null;
     }
-
 }
