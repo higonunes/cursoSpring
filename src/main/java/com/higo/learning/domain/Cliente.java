@@ -17,7 +17,7 @@ public class Cliente implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String nome, email, cpfOuCnpj;
+    private String nome, email, cpfOuCnpj, imageURL;
     private Integer tipo;
 
     @JsonIgnore
@@ -50,6 +50,14 @@ public class Cliente implements Serializable {
         this.senha = senha;
         this.tipo = (tipo==null) ? null : tipo.getCod();
         addPerfil(Perfil.CLIENTE);
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public Set<Perfil> getPefis() {
