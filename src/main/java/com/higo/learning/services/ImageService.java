@@ -1,7 +1,9 @@
 package com.higo.learning.services;
 
 import com.higo.learning.services.exceptions.FileException;
+import javassist.scopedpool.ScopedClassPoolRepository;
 import org.apache.commons.io.FilenameUtils;
+import org.imgscalr.Scalr;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,6 +39,21 @@ public class ImageService {
         BufferedImage jpgImage = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
         jpgImage.createGraphics().drawImage(img, 0, 0, Color.white, null);
         return jpgImage;
+    }
+
+    public BufferedImage cropSquare(BufferedImage sourceImg) {
+        int min = (sourceImg.getHeight() <= sourceImg.getWidth() ? sourceImg.getHeight() : sourceImg.getWidth());
+        return Scalr.crop(
+                sourceImg,
+                (sourceImg.getWidth()/2) - (min/2),
+                (sourceImg.getHeight()/2) - (min/2),
+                min,
+                min
+        );
+    }
+
+    public BufferedImage resize(BufferedImage source, int size) {
+        return Scalr.resize(source, Scalr.Method.ULTRA_QUALITY, size);
     }
 
     public InputStream getInputStream(BufferedImage img, String extension) {
