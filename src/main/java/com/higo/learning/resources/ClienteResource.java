@@ -28,7 +28,6 @@ public class ClienteResource {
     @GetMapping(value = "/{id}")
     public ResponseEntity<?> find(@PathVariable Integer id) {
         Cliente obj = service.find(id);
-
         return ResponseEntity.ok().body(obj);
 
     }
@@ -39,7 +38,6 @@ public class ClienteResource {
         return ResponseEntity.ok().body(obj);
 
     }
-
 
     @PostMapping
     public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO objDTO) {

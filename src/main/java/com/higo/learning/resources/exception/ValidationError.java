@@ -3,7 +3,9 @@ package com.higo.learning.resources.exception;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationError extends  StandardError {
+public class ValidationError extends StandardError {
+
+    public static final long serialVersionUID = 1L;
 
     private final List<FieldMessage> list = new ArrayList<>();
 
